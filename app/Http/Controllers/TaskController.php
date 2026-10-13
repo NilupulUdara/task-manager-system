@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskRequest;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -37,19 +38,9 @@ class TaskController extends Controller
         return view('tasks.create');
     }
 
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        $validated = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-            'due_date' => ['nullable', 'date'],
-            'status' => [
-                'required',
-                Rule::in(['pending', 'in_progress', 'completed']),
-            ],
-        ]);
-
-        Task::create($validated);
+        Task::create($request->validated());
 
         return redirect()
             ->route('tasks.index')
@@ -66,19 +57,9 @@ class TaskController extends Controller
         return view('tasks.edit', compact('task'));
     }
 
-    public function update(Request $request, Task $task)
+    public function update(TaskRequest $request, Task $task)
     {
-        $validated = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-            'due_date' => ['nullable', 'date'],
-            'status' => [
-                'required',
-                Rule::in(['pending', 'in_progress', 'completed']),
-            ],
-        ]);
-
-        $task->update($validated);
+        $task->update($request->validated());
 
         return redirect()
             ->route('tasks.index')
