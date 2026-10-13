@@ -4,6 +4,41 @@
 @section('title', 'All Tasks')
 
 @section('content')
+    <style>
+        .pagination {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .page-link {
+            display: inline-block;
+            padding: 7px 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 5px;
+            color: #1d4ed8;
+            text-decoration: none;
+        }
+
+        .page-link:hover {
+            background: #eff6ff;
+        }
+
+        .page-item.active .page-link {
+            background: #1d4ed8;
+            border-color: #1d4ed8;
+            color: white;
+        }
+
+        .page-item.disabled .page-link {
+            color: #94a3b8;
+            pointer-events: none;
+        }
+    </style>
+
     <div class="card">
         <h1>Task Manager</h1>
         <p>Manage your tasks in one place.</p>
@@ -59,8 +94,9 @@
                 <thead>
                     <tr>
                         <th>Title</th>
-                        <th>Due Date</th>
                         <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Created Date</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -68,39 +104,20 @@
                 <tbody>
                     @foreach ($tasks as $task)
                         <tr>
-                            <td>{{ $task->title }}</td>
+                            <td>
+                                {{ $task->title }}
+                            </td>
+
+                            <td>
+                                {{ ucwords(str_replace('_', ' ', $task->status)) }}
+                            </td>
 
                             <td>
                                 {{ $task->due_date?->format('Y-m-d') ?? '—' }}
                             </td>
 
                             <td>
-                                {{ ucwords(str_replace('_', ' ', $task->status)) }}
-
-                                <form
-                                    action="{{ route('tasks.updateStatus', $task) }}"
-                                    method="POST"
-                                >
-                                    @csrf
-                                    @method('PATCH')
-
-                                    <select name="status"
-                                        aria-label="Update task status"
-                                        onchange="this.form.submit()">
-                                        <option value="pending"
-                                            @selected($task->status === 'pending')>
-                                            Pending
-                                        </option>
-                                        <option value="in_progress"
-                                            @selected($task->status === 'in_progress')>
-                                            In Progress
-                                        </option>
-                                        <option value="completed"
-                                            @selected($task->status === 'completed')>
-                                            Completed
-                                        </option>
-                                    </select>
-                                </form>
+                                {{ $task->created_at->format('Y-m-d') }}
                             </td>
 
                             <td>
@@ -130,7 +147,7 @@
                 </tbody>
             </table>
 
-            <div style="margin-top: 20px">
+            <div style="margin-top: 20px" aria-label="Task pagination">
                 {{ $tasks->links() }}
             </div>
         @endif

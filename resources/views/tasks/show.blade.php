@@ -13,17 +13,17 @@
         </p>
 
         <p>
+            <strong>Status:</strong>
+            {{ ucwords(str_replace('_', ' ', $task->status)) }}
+        </p>
+        
+        <p>
             <strong>Due Date:</strong>
             {{ $task->due_date?->format('Y-m-d') ?? 'Not set' }}
         </p>
 
         <p>
-            <strong>Status:</strong>
-            {{ ucwords(str_replace('_', ' ', $task->status)) }}
-        </p>
-
-        <p>
-            <strong>Created:</strong>
+            <strong>Created Date:</strong>
             {{ $task->created_at->format('Y-m-d H:i') }}
         </p>
 
