@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskRequest;
 use App\Models\Task;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class TaskController extends Controller
 {
-    public function index(Request $request)
+    public function index(TaskRequest $request)
     {
         $query = Task::query();
 
@@ -28,7 +26,7 @@ class TaskController extends Controller
             $query->where('status', $request->status);
         }
 
-        $tasks = $query->latest()->paginate(10)->withQueryString();
+        $tasks = $query->latest()->paginate(5)->withQueryString();
 
         return view('tasks.index', compact('tasks'));
     }
@@ -66,16 +64,9 @@ class TaskController extends Controller
             ->with('success', 'Task updated successfully.');
     }
 
-    public function updateStatus(Request $request, Task $task)
+    public function updateStatus(TaskRequest $request, Task $task)
     {
-        $validated = $request->validate([
-            'status' => [
-                'required',
-                Rule::in(['pending', 'in_progress', 'completed']),
-            ],
-        ]);
-
-        $task->update($validated);
+        $task->update($request->validated());
 
         return redirect()
             ->back()
