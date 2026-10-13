@@ -24,7 +24,12 @@
 
         <p>
             <strong>Created Date:</strong>
-            {{ $task->created_at->format('Y-m-d H:i') }}
+            {{ $task->created_at->format('Y-m-d') }}
+        </p>
+
+        <p>
+            <strong>Updated Date:</strong>
+            {{ $task->updated_at->format('Y-m-d') }}
         </p>
 
         <a href="{{ route('tasks.edit', $task) }}" class="btn">
