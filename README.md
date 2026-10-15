@@ -6,11 +6,11 @@ and navigate through paginated task lists.
 
 1. Technologies Used
 
-Backend: PHP 8.2+, Laravel 12
-Frontend: HTML, CSS, Laravel Blade
-Database: MySQL
-ORM: Laravel Eloquent ORM
-evelopment tools: Visual Studio Code, MYSQL Workbench
+Backend: PHP 8.2+, Laravel 12<br>
+Frontend: HTML, CSS, Laravel Blade<br>
+Database: MySQL<br>
+ORM: Laravel Eloquent ORM<br>
+evelopment tools: Visual Studio Code, MYSQL Workbench<br>
 
 2. Features
 
@@ -30,8 +30,8 @@ Display success messages after successful operations.
 Ensure the following software is installed:
 PHP 8.2 or a compatible version supported by the project.
 Composer.
-MySQL Server
-MySQL Workbench
+MySQL Server.
+MySQL Workbench.
 Node.js and npm.
 Git.
 
