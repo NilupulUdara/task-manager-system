@@ -10,20 +10,20 @@ class TaskController extends Controller
     public function index(TaskRequest $request)
     {
         $query = Task::query();
+        $filters = $request->validated();
 
-        // Search by title or description
-        if ($request->filled('search')) {
-            $search = $request->search;
+        // Search by title
+        if (! empty($filters['search'])) {
+            $search = $filters['search'];
 
             $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                $q->where('title', 'like', "%{$search}%");
             });
         }
 
         // Filter by status
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
+        if (! empty($filters['status'])) {
+            $query->where('status', $filters['status']);
         }
 
         $tasks = $query->latest()->paginate(5)->withQueryString();

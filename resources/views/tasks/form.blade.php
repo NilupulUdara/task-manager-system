@@ -8,7 +8,12 @@
         value="{{ old('title', isset($task) ? $task->title : '') }}"
         required
         maxlength="255"
+        oninvalid="this.setCustomValidity('Title is required')"
+        oninput="this.setCustomValidity(this.value.trim() === '' ? 'Title is required' : '')"
     >
+    @error('title')
+        <div class="error" role="alert">{{ $message }}</div>
+    @enderror
 
     <label for="description">Description</label>
     <textarea

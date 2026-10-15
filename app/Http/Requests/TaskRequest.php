@@ -16,7 +16,7 @@ class TaskRequest extends FormRequest
     {
         if ($this->routeIs('tasks.index')) {
             return [
-                'search' => ['nullable', 'string'],
+                'search' => ['nullable', 'string', 'max:255'],
                 'status' => [
                     'nullable',
                     Rule::in(['pending', 'in_progress', 'completed']),
