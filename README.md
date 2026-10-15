@@ -10,7 +10,7 @@ Backend: PHP 8.2+, Laravel 12<br>
 Frontend: HTML, CSS, Laravel Blade<br>
 Database: MySQL<br>
 ORM: Laravel Eloquent ORM<br>
-evelopment tools: Visual Studio Code, MYSQL Workbench<br>
+Development tools: Visual Studio Code, MYSQL Workbench<br>
 
 2. Features
 
@@ -54,12 +54,12 @@ Create a database by executing the following SQL statement:
 CREATE DATABASE task_manager_system;
 
 Step 4: Configure the database connection in the Laravel .env file:
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=task_manager_system
-DB_USERNAME=root
-DB_PASSWORD=your_mysql_password
+DB_CONNECTION=mysql<br>
+DB_HOST=127.0.0.1<br>
+DB_PORT=3306<br>
+DB_DATABASE=task_manager_system<br>
+DB_USERNAME=root<br>
+DB_PASSWORD=your_mysql_password<br>
 
 Replace root and your_mysql_password with the credentials for your MySQL Server.
 
