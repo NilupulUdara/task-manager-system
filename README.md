@@ -1,59 +1,125 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Task Manager System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A simple task management web application built with Laravel 12, PHP, MySQL, and Blade templates.
+The application allows users to manage tasks, update their statuses, search by title, filter by status, 
+and navigate through paginated task lists.
 
-## About Laravel
+1. Technologies Used
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Backend: PHP 8.2+, Laravel 12
+Frontend: HTML, CSS, Laravel Blade
+Database: MySQL
+ORM: Laravel Eloquent ORM
+evelopment tools: Visual Studio Code, MYSQL Workbench
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+2. Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Create new tasks.
+View task details and the task list.
+Edit existing tasks.
+Delete tasks with confirmation.
+Update task statuses.
+Search tasks by title.
+Filter tasks by status.
+Paginate task lists.
+Validate user input.
+Display success messages after successful operations.
 
-## Learning Laravel
+3. Prerequisites
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Ensure the following software is installed:
+PHP 8.2 or a compatible version supported by the project.
+Composer.
+MySQL Server
+MySQL Workbench
+Node.js and npm.
+Git.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4. Installation and Setup
 
-## Laravel Sponsors
+Step 1: Clone the repository 
+git clone https://github.com/NilupulUdara/task-manager-system.git
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+cd task-manager-system
 
-### Premium Partners
+Step 2: Install PHP dependencies
+composer install
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Step 3: Create the database
 
-## Contributing
+Open MySQL Workbench.
+Connect to your local MySQL Server.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Create a database by executing the following SQL statement:
+CREATE DATABASE task_manager_system;
 
-## Code of Conduct
+Step 4: Configure the database connection in the Laravel .env file:
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=task_manager_system
+DB_USERNAME=root
+DB_PASSWORD=your_mysql_password
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Replace root and your_mysql_password with the credentials for your MySQL Server.
 
-## Security Vulnerabilities
+Step 5: Run database migrations
+php artisan migrate
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Step 6: Start the application
+php artisan serve
 
-## License
+Step 7: Open the following URL in your browser:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+http://127.0.0.1:8000
+
+The application should now be ready to use.
+
+
+Implementation Decisions
+
+Laravel MVC architecture
+The application follows Laravel's Model-View-Controller (MVC) architecture to separate database operations,
+application logic, and the user interface.
+
+Model: The Task model represents task records in the database.
+View: Blade templates display task lists, forms, details, and validation messages.
+Controller: TaskController handles CRUD operations, search, filtering, and pagination.
+
+Eloquent ORM
+
+Laravel Eloquent ORM is used for database operations. It provides a convenient way to retrieve, create, update, 
+and delete task records without writing raw SQL queries for routine operations.
+
+Form validation
+
+A dedicated TaskRequest class handles request validation. This helps keep validation rules separate from the controller
+logic and prevents invalid data from being stored.
+
+Search and filtering
+
+The task list supports searching by title and filtering by status. 
+Eloquent query conditions are applied only when the corresponding filters are provided.
+
+Pagination
+
+The task list uses Laravel's pagination functionality to display a limited number of tasks per page. 
+Query strings are preserved when navigating between pages so that active search and status filters remain applied.
+
+
+Assumptions
+
+Authentication and user accounts are not required.
+All users share the same task list and can manage the available tasks.
+Each task has a title, an optional description, a status, an optional due date, updated date and creation date.
+Task statuses are restricted to the values defined by the application's validation rules.
+
+The application runs locally using MySQL and Laravel's development server.
+
+Database credentials and other environment-specific settings are configured through .env.
+
+Challenges Encountered
+
+Search, filtering, and pagination
+Search and status filters need to work together, including when navigating between pages.
+Laravel's query builder and withQueryString() help maintain the selected filters during pagination.
